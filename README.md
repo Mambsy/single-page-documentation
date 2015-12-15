@@ -1,5 +1,5 @@
-# singe-page-documentation
-A skeleton to create single page documentation pages, with markdown support and sintax highlight.
+# Single page documentation
+A skeleton to create single page documentations in HTML, with markdown support and sintax highlight.
 
 Supports:
 - Markdown and HTML (thanks to markdown-it.js)
