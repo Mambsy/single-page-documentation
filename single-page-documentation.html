@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Single Page Documentation</title>
+	<!-- BassCss -->
+	<link rel="stylesheet" href="http://d2v52k3cl9vedd.cloudfront.net/basscss/7.0.4/basscss.min.css">
+	<!-- Anonymous Pro - Google Fonts 
+	<link href='https://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet' type='text/css'> -->
+	<!-- Estilos para bloques de código
+	(en markdown, 
+	`` => <code></code>
+	y
+	``` ``` => <pre><code> </code></pre>) -->
+	<style>
+		pre > code{
+			font-size: 12px;
+		}
+		pre{
+			background-color: #212021;
+			color: #e1e1e1;
+		}
+		pre, code{ border: 1px solid silver; }
+		pre{
+			font-family: 'Anonymous Pro', Monaco, PT mono, monospace;
+			padding: 1em; overflow: auto;
+		}
+		pre > code{  border: none; }
+		h3{
+			border-bottom: 1px solid silver;
+			font-family: 'Anonymous Pro', Monaco, PT mono, monospace;
+		}
+		ul{
+			padding-left: 1em;
+		}
+		@media screen and (min-width: 52em){
+			#navigation{
+				position: fixed;
+				max-width: 100vh;
+				bottom: 0;
+				top: 0;
+				overflow-y: auto;
+			}
+			#navigation + .col{
+				margin-left: 33.3333%;
+			}
+			#navigation .active>a{
+				background-color: yellow;
+			}
+		}
+		</style>
+	<!--jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<!-- Markdown-it.js -->
+	<!-- Convertir todo el cuerpo del mensaje a markdown, pero permitir que se utilize html. -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/5.0.2/markdown-it.min.js"></script>
+	<!-- Highlight.js -->
+	<!-- Colorea bloques de javascript -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/monokai.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<!-- Auto anchor-link -->
+	<script src="vendor/anchorific.js"></script>
+	<script>
+	var defaultHighlightLanguage = 'javascript'; // Leave NULL ('') to let Highlight.js auto-detect the languaje
+	window.onload = function() {
+		//
+		var md = window.markdownit('default',
+			{
+				html:         true,
+				linkify:      true, // escribir http://... crea un link automáticamente
+				breaks:       true,  // un enter = un <br>
+				typographer:  true,
+				langPrefix:   'hljs ',
+				highlight: function (str, lang) {
+					try {
+						if ( defaultHighlightLanguage != '' ){
+							return hljs.highlight( defaultHighlightLanguage, str ).value;
+						}else
+					  		return hljs.highlightAuto(str).value;
+					} catch (__) {}
+
+					return ''; // use external default escaping*/
+				}
+			});
+		$('#markdown').html( md.render( $('#markdown').html() ) );
+		// auto-crear anchor links
+		$('body').anchorific({
+		    navigation: '.anchorific', // position of navigation
+		    speed: 200, // speed of sliding back to top
+		    anchorClass: 'anchor', // class of anchor links
+		    anchorText: '#', // prepended or appended to anchor headings
+		    top: '.top', // back to top button or link class
+		    spy: true, // scroll spy
+		    position: 'prepend', // position of anchor text
+		    spyOffset: 250 // specify heading offset for spy scrolling
+		});
+
+	}
+	</script>
+
+	<script>
+	</script>
+</head>
+<body class="clearfix" id="markdown">
+<div class="col md-col-4 px2" id="navigation">
+	<div class="mxn2 border-bottom bg-white p2" id="nav-title">
+		Contents: <a href="#Top" class="top">Back to top</a>
+	</div>
+	<div class="anchorific"></div>
+</div>
+<div class="col md-col-8 p2" style="max-width:100%">
+
+# Single Page Documentation
+
+## With the styles of BassCSS
+
+This is the skeleton for a single page documentation. It comes with a nice basscss layer wich you can use <span class="navy">in the body</span> in the html language.
+
+
+## MarkDown + HTML
+
+Additionaly to HTML, you can write in markdown, thanks to the [markdown-it] javascript library.
+
+
+## Responsive
+
+This documentation can easily be viewed in any mobile device. When the screen is big enough, it will nicely split and a left navbar will appear.
+
+### Auto-generated navbar
+
+A navbar on the left of the screen will be generated automatically with the contents of the document. The contents include any `h1` to `h6` tag you place in the body. This is achieved thanks to [anchorific], whose [beautifull example][anchorific example] shows the full potential of auto-generating nested navigations and anchor links on title tags.
+
+# With Sintax Highlight
+
+Did I mention sintax highlight yet? It's powered by [Highlight.js].
+```
+var Example = new Documentation( {
+	'documentation': true,
+	'basscss': true,
+	'anchorific': true
+} );
+```
+
+It uses monokai theme by default, but you could easily change that:
+(line 60)
+```
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/monokai.min.css">
+```
+If you choose a light theme, you will also need to delete the css rule at line 20:
+```
+pre{
+	background-color: #212021;
+	color: #e1e1e1;
+}
+```
+
+By default, the highlight sintax is configured to _javascript_, yet, I made it super easy for you to change that. Simply change line 65 to whatever language you prefer.
+```
+var defaultHighlightLanguage = 'javascript';
+// Leave NULL ('') to let Highlight.js auto-detect the languaje
+```
+
+
+[markdown-it]: https://github.com/markdown-it/markdown-it
+[anchorific]: https://github.com/renettarenula/anchorific.js/
+[anchorific example]: http://renaysha.me/anchorific-js/
+[Highlight.js]: https://highlightjs.org/
+
+</div>
